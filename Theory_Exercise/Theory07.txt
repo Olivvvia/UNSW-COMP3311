@@ -1,0 +1,156 @@
+1.
+a. x can functionally determines other attributes
+(x -> R-x)
+b. 
+!(A->C)
+!(A->B)
+!(B->C)
+c.
+E and F are equivalent.
+
+2.
+A+ = AB
+ACEG+ = ACEGBF
+BD+ = BDFEGAC
+3.
+A candidate key is any set X , such that
+x+ = R and there is no Y subset of x that y+ = R;
+Candidate Keys: { CDE,ACD,BCD}
+R is in 3NF because rhs are part of keys;
+R is not in BNCF because non of the lhs contains a key'
+
+4.
+R(A,B,C,D)
+i) candidate key:  B
+C → D,   C → A,   B → C
+3NF x because c->A not contains a key 
+and A is not part of a key
+
+BCNF x because c->a doesnot contains a key
+
+ii.
+candidate key: BD
+3NF X because neither b->c, c->a neither rhs is part of a key
+BCNF X because neither lhs contains a key
+
+iii.
+K: ABC
+3NF v ABC->D is ok, D->A is ok
+BCNF X because in D->A doesn't contains a key
+
+iv.
+A+ = ABCD
+BC+ = BCD 
+Key: A
+3NF x because A->C, C is not part of a key 
+BCNF X because BC->D doesnot contains a key
+
+v.
+Key: AB,CD,BC,AD
+3NF V because all the rhs are part of the key
+BCNF X because C->A doesnot contains a key
+
+vi.
+Key: A
+3NF V lhs is superkey
+BCNF V because lhs contains a key
+
+5.
+For each relation, every non-trivial fd has 
+a lhs which is superkey, so each relation is
+in BCNF so the who schema is in BCNF.
+
+6.
+Warehouse# -> address
+source... no fds
+Trip#->data,truck
+shipment#->...
+For each relation, every non-trivial fd has a left hand side which is a super key ⇒ each relation is in BCNF and the whole schema is in BCNF.
+This just goes to show that ER design generally leads to well-structured relational designs.
+
+7.
+a.C → D, C → A,B → C
+key: B
+3NF: CD,CA,BC
+BCNF: CD,CA,BC
+
+b.
+key: BD
+3NF: BC,DA,BD
+BCNF: BC,DA,BD
+
+d.
+KEY:A
+3NF: AB BCD AC
+BCNF: ABC,BCD
+
+E.
+KEY:AB
+
+
+10.
+P->A
+S->M
+W->N
+R: PWANSMC
+P+ = PA
+S+ = SM
+W+ = WN
+PSW+ = PASMWN
+PSWC+ = PWANSMC
+So PSWC is the key.
+
+11.
+C->A
+C->H
+A->H
+T->N
+CT->R
+
+12.
+A is the super key;
+
+15.
+R  =  ABCDEFGH 
+F  =  { ABH→C, A→DE, BGH→F, F→ADH, BH→GE}
+A+ = ADE
+BH+ => KEY
+ABH+ = ABHCDEGF key
+BGH+ = BGHFADEC key
+F+ = ADHE
+
+A->DE Doesnot contains a key,
+so we decompose into (ADE)(ABCFGH)
+FDs for ADE are A->DE
+FDs for ABCFGH are ABH→C,BGH→F, F→AH, BH→G,
+since F->AH doesnot contains a key in lhs,
+we decompose into (FAH)(BCFG)
+FDs for FAH are F->AH
+FDs for BCFG are {}, so BCFG is in BCNF.
+Therefore , BCNF is (ADE)(FAH)(BCFG)
+
+17.
+R  =  ABCDEFGH 
+F  =  {ABH→C, A→D, C→E, BGH→F, F→AD, E→F, BH→E}
+Keys : BGH
+ABH+ = ABHCDEF
+BGH+ = BGHFADCE
+
+15.
+BH+ = BHGEFADC
+So BH is key;
+A->DE violates BCNF, So we decompose into 
+R1(ADE) R2(ABCFGH)
+R1: OK
+R2:(ABCFGH)
+    Fds={ABH->C,BGH->F,F->AH,BH->G}
+    F->AH violates BCNF,
+    so we decompose into R3(FAH), R4(BCFG)
+R3: OK
+R4: Fds = {}, which is in BCNF
+
+So BCNF Decomposition is (ADE)(AFH)(    BCFG)
+
+
+
+

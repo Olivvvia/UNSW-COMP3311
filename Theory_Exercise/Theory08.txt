@@ -1,0 +1,117 @@
+2.
+Theta Join: has attributes for both, and their col
+are identical.
+Natual Join: has only one attribute from
+each part of matching attributes.
+
+3.
+a. {700, 1000, 1500}
+b. {700,700,1000,1000,1500}
+
+4.
+a1
+a1
+a1 a2
+R × S - (Sel[R.C=S.C](R Join[B=B] S)
+
+5.
+a. N2+N1, N1
+b. N2, 0
+
+
+7.
+a.
+Tmp1 = Proj[pid](Sel[color=red](Parts))
+Tmp2 = Proj[supplier](Tmp1 Join Catalog)
+Res = Proj[sname](Tmp2 Join Suppliers)
+
+b.
+Tmp1 = Proj[pid](Sel[color='red' or color='green'])(Parts)
+Answer = Proj[supplier](Tmp1 Join Catalog)
+
+c.
+Tmp1 = Proj[pid](Sel[colog='red'](Parts))
+Tmp2 = Proj[sid](Sel[address='221 Packer Street'](Suppliers))
+Tmp3 = Proj[supplier](Tmp1 Join Catalog)
+Res = Tmp3 Union Tmp2
+
+d.
+RedPart = Proj[pid](Sel[colour='Red'](Parts))
+GreenPart = Proj[pid](Sel[colour='Green'](Parts))
+RGPart = RedPart Intersect GreenPart
+Answer = Proj[supplier](RGPart Join Catalog)
+
+e.
+AllPartIds = Proj[pid](Parts)
+PartSuppliers = Proj[sid,pid](Catalog)
+Answer = PartSuppliers Div AllPartIds
+
+h.
+AllGreen = Proj[pid](Sel[color='Green'](Parts))
+PartSuppliers = Proj[sid, pid](Catalog)
+AllRed = Proj[pid](Sel[color='Red'](Parts))
+Tmp1 = PartSuppliers Div AllGreen
+Tmp2 = PartSuppliers Div AllRed
+Answer = Tmp1 Union Tmp2
+
+i.
+P1 = Proj[sid, pid](Catalog)
+P2 = Proj[sid, pid](Catalog)
+P3 = Proj[pid](P1 Join[P1.pid=P2.pid] P2)
+Answer = Sel[P1.sid!=P2.sid](P3)
+
+C1 = Catalog
+C2 = Catalog
+SupplierPart = Sel[c1.sid!=c2.sid](C1 Join[pid] C2)
+
+j.
+C1 = Catalog
+C2 = Catalog
+Answer = Proj[c1.sid,c2.sid](Sel[C1.sid!=C2.sid AND c1.price>c2.price](C1 Join[pid] C2))
+
+k.
+R1 = Proj[sid,pid,cost](Sel[sname='Yosemite Sharn'](Suppliers Join Catalog))
+R2 = Proj[sid,pid,cost](Sel[sname='Yosemite Sharn'](Suppliers Join Catalog))
+Max = Rename[1->sid,2->pid,3->cost](Sel[R2.cost<R1.cost](R1xR2))
+Answer = Proj[pid](R2 Minus Proj[sid,pid,cost](Max))
+
+i.
+R1 = Proj[pid,sid](Sel[cost<200](Catalog))
+AllSuppliers = Proj[pid,sid](Suppliers)
+Answer = Proj[pid](R1 Div AllSuppliers)
+
+8.
+a. Find name of suppliers which sell red parts less than 100 dollars.
+b. Produce nothing, because there is no sname field left to job after Proj[sid]
+c. Find name of suppliers who sell both read and green parts
+with both price less than 100 dollars
+d. Find id of suppliers who sell both read and green parts
+with both price less than 100 dollars
+e. Find name and id of suppliers who sell both read and green parts
+with both price less than 100 dollars.
+
+9.
+R1 = Employees
+R2 = Employees
+LowerPaidEmployees = Proj[R2.eid](Sel(R1 Join[R1.salary>R2.salary] R2))
+HighestPaid = Employees Minus LowerPaidEmployees
+NOTHighest = Employee Minus HighestPaid
+R4 = NOTHighest
+R5 = NOTHighest
+SecondHighest = NotHighest Minus
+                Proj[R5.eid](Sel(R4 Join[R4.salary>R5.salary] R5))
+
+R1 = GroupBy[employee,Count[aircraft]](Certified)  
+R2 = Rename[1->employee, 2->ncertified](R1)
+R3 = Max[ncertified](R2)
+Answer = Sel[ncertified=R3](R1)
+
+R1 = GroupBy[employee,Count(employee)](Certified)
+R2 = Rename[1->eid,2->nemployee](R1)
+Asnwer = Proj[eid]Sel([nemployee=3](R2))
+
+AllPeople = Supplier x Part x Job
+Answer = Proj[sid,pid,jid](Sel[scity!=pcity or scity!=jcity or pcity != jcity](AllPeople))
+
+PartUsage = GroupBy[part]Avg[qty](SPJ)
+Answer = Proj[part]Sel[avg>320](PartUsage))
