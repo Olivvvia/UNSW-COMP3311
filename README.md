@@ -1,2 +1,2 @@
-# UNSW COMP3311
-19T3 Database Systems
+# COMP3311
+UNSW 19T3 Database Systems
